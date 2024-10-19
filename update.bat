@@ -1,2 +1,2 @@
 @echo off
-.\python.exe update.py
+.\python.exe updating.py
