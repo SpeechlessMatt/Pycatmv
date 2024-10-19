@@ -413,7 +413,7 @@ def main(setUrl="null"):
 
 if __name__ == '__main__':
     print("* 正在检查更新...")
-    update_status = detect_update("https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/version.info")
+    update_status = detect_update("https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/version.json")
     if update_status == 1:
         print("有可用更新，是否更新？[y/n]")
         up_choice = input()
