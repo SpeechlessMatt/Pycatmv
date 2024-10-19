@@ -103,7 +103,7 @@ def main(url):
 # shutil.rmtree("./ts/sb")
 # write_d()
 # read_d()
-# detect_update("https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/version.info")
+# detect_update("https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/version.json")
 if __name__ == '__main__':
     if main("https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/effective_version.json") == 0:
         update_all()
