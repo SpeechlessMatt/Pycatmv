@@ -8,6 +8,7 @@ import aiofiles
 import asyncio
 import time
 import shutil
+from test import detect_update
 """
 初级阶段的任务（已完成）
 1. 从主页面拿到不同播放源 目前只抓暴风云
@@ -407,6 +408,16 @@ def main(setUrl="null"):
 
 
 if __name__ == '__main__':
+    print("* 正在检查更新...")
+    update_status = detect_update("https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/version.info")
+    if update_status == 1:
+        print("有可用更新，是否更新？[y/n]")
+        up_choice = input()
+        if up_choice == "y" or up_choice == "Y":
+            os.system("update.bat")
+            sys.exit(0)
+        else:
+            print("---用户：拒绝更新")
     try:
         temp_file = open("temp", mode="r")
     except FileNotFoundError:
