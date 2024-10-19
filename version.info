@@ -1,14 +1,5 @@
 {
-    "add_files": {
-        "c": 3,
-        "r": 1,
-        "t": 2
-    },
+    "log": "update",
     "project": "Pycatmv",
-    "remove_files": {
-        "c": 3,
-        "r": 1,
-        "t": 2
-    },
-    "version": "0.0.1"
+    "version": "0.1.0"
 }

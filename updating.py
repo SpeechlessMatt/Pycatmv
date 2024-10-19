@@ -52,13 +52,13 @@ def detect_update(version_file_url):
         with open("update", mode="w") as u:
             u.write(net_info["version"])
         return 1
-    print(net_list, exist_list)
+    # print(net_list, exist_list)
     for i in range(len(net_list)):
         if exist_list[i] < net_list[i]:
             with open("update", mode="w") as u:
                 u.write(net_info["version"])
             return 1
-    print("same")
+    print("--无可用更新，当前版本是最新版本--")
     return 0
 
 def update_all():
@@ -81,7 +81,7 @@ def main(url):
                 print("接收到全量版本更新！")
                 return 0
         # 目前热更新仅支持main.py更新
-        hot_update_url = dic[len(version_list)]['direct_url']
+        hot_update_url = dic[version_list[-1]]['direct_url']
         try:
             with requests.get(hot_update_url) as r:
                 with open("main_0.py", mode="wb") as m:
