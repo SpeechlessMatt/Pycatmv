@@ -47,7 +47,10 @@ headers = {
 
 
 def init_all(dir_='ts'):
-    os.mkdir(dir_)
+    try:
+        os.mkdir(dir_)
+    except FileExistsError:
+        print(f"文件夹已经存在，请重命名或删除：{dir_}")
 
 
 # 搜索片名，但是这个是禁止高速爬虫的，我们应该严格遵守robots.txt的协议，因此需要保护该接口
@@ -212,14 +215,15 @@ def from_api_to_url(url):
 
 def ff_method(url: str, name, download_dir):
     headers_ = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
-        "Referer": "https://svip.ffzyplay.com/"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+        "Referer": "https://svip.ffzyplay.com/",
+        "Origin": "https://svip.ffzyplay.com/"
     }
-    session = requests.session()
     with open(f"{download_dir}/w1.m3u8", mode="wb") as f1:
-        resp1 = session.get(url, headers=headers_)
+        resp1 = requests.get(url, headers=headers_, timeout=20)
         f1.write(resp1.content)
         print("[*]第一层解析完成")
+        resp1.close()
     with open(f"{download_dir}/w1.m3u8", mode="r") as f1:
         for it in f1:
             if str(it).startswith("#"):
@@ -227,11 +231,11 @@ def ff_method(url: str, name, download_dir):
             url2 = url.rsplit("/",1)[0] + "/" + str(it).strip()
             # print(url2)
     with open(download_dir + '/' + name, mode="wb") as f2:
-        resp2 = session.get(url2, headers=headers_)
+        resp2 = requests.get(url2, headers=headers_, timeout=20)
         # print(resp2.text)
         f2.write(resp2.content)
         print("[*]第二层解析完成")
-    session.close()
+        resp2.close()
     os.remove(f"{download_dir}/w1.m3u8")
     # print("ok")
 
@@ -252,6 +256,8 @@ def match_api_method(api_name, m3u8_href, name, download_dir):
         #     print("5s后自动退出...")
     except requests.exceptions.ConnectTimeout:
         print("该源不可用！请尝试别的源")
+        if os.path.exists(download_dir):
+            shutil.rmtree(download_dir)
         return 1
 
 # 获取m3u8的url
@@ -342,6 +348,7 @@ def detect_api_protection():
 
 
 def main(setUrl="null"):
+    # print(setUrl)
     host = "https://www.xc8j.com"
     detect_api_protection()
     print("* 免责声明：程序仅供学习，侵权删资源...")
@@ -364,6 +371,7 @@ def main(setUrl="null"):
             child_page = from_api_to_url(set_url)
             # 请求播放子页拿到m3u8地址
             m3u8_href = get_m3u8_url(child_page[1])
+            os.remove("temp")
 
     except requests.exceptions.ConnectTimeout:
         print("---连接超时，请求重试（8s后退出）---")
@@ -433,7 +441,7 @@ if __name__ == '__main__':
             if str(temp_line).startswith("[setUrl]"):
                 if_temp = input("上次因为播放源出错退出，是否更换播放源？[y/n]")
                 if if_temp in ["y", "Y"]:
-                    main(temp_line.strip("[setUrl]"))
+                    main(temp_line.lstrip("[setUrl]"))
                 else:
                     main()
         temp_file.close()
