@@ -41,6 +41,8 @@ def detect_update(version_file_url):
         return 0
     except requests.exceptions.ConnectTimeout:
         return 0
+    except requests.exceptions.ReadTimeout:
+        return 0
     else:
         exist_info = json.loads(v.read())
         v.close()
