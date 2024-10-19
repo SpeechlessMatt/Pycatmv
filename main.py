@@ -11,6 +11,7 @@ import shutil
 from updating import detect_update
 
 # version: 0.1.0
+VERSION = "0.1.0"
 """
 初级阶段的任务（已完成）
 1. 从主页面拿到不同播放源 目前只抓暴风云
@@ -345,6 +346,7 @@ def main(setUrl="null"):
     detect_api_protection()
     print("* 免责声明：程序仅供学习，侵权删资源...")
     print("* 作者:@czy_4201b")
+    print(f"* 当前版本：{VERSION}")
     print("* 本软件的接口来源于星辰影院，一个小服务器，不要过度折腾他\n毕竟运营服务器要钱的...")
     print("* 下载后的文件在本目录Documents文件夹里面")
     try:

@@ -40,8 +40,10 @@ def detect_update(version_file_url):
         print("*******警告：当前版本信息丢失，本项目文件不完整...无法获取更新!*******")
         return 0
     except requests.exceptions.ConnectTimeout:
+        print("暂无可用更新")
         return 0
     except requests.exceptions.ReadTimeout:
+        print("暂无可用更新")
         return 0
     else:
         exist_info = json.loads(v.read())
