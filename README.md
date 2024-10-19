@@ -1,7 +1,7 @@
 # Pycatmv
 A free movie cat.A rookie-made simple python to catch data from free webs.It can help you DOWNLOAD .mp4 which use ffmpeg to merge all "ts" into one file.
 # Supported Platforms
-Windows 11 or later
+* Windows 11 or later
 # note
 * 📌Because i just a [rookie](https://tse4-mm.cn.bing.net/th/id/OIP-C.HC82QkFgKgO8PlcjvLtVoAHaHa?rs=1&pid=ImgDetMain), please don't scold at me.
 # Download
