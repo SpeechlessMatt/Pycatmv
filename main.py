@@ -311,6 +311,8 @@ def cat_ffmpeg(m3u8_file, download_dir="ts"):
                 line = str(it).strip()
                 if line.startswith("#") or line.startswith("/"):
                     continue
+                if not line:
+                    continue
                 ffmpeg_file.write(f"file '{line}'\n")
     with os.popen(
             f"ffmpeg -loglevel quiet -f concat  -safe 0  -i {download_dir}/files.txt -c copy -bsf:a aac_adtstoasc Downloads/{m3u8_file.rstrip('.m3u8')}.mp4") as ret:
