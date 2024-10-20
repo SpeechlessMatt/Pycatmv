@@ -81,6 +81,7 @@ def main(url):
         exist_version = v.read()
     if exist_version in version_list:
         exist_version_index = version_list.index(exist_version)
+        updating_url = None
         for it in range(exist_version_index + 1, len(version_list)):
             update_version = version_list[it]
             if dic[update_version]['log'] == "all_update":
