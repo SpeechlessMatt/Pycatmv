@@ -7,24 +7,26 @@ if '%errorlevel%' NEQ '0' (goto UACPrompt) else (goto UACAdmin)
 exit /B
 :UACAdmin
 cd /d "%~dp0"
-echo ÒÑ»ñÈ¡¹ÜÀíÔ±È¨ÏÞ
+echo ï¿½Ñ»ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ô±È¨ï¿½ï¿½
 echo **************************************************************
-echo *±¾ÏîÄ¿ÔÚGitHubÉÏ¿ªÔ´£¬¾ø²»ÊÕ¼¯ÈÎºÎÄúµÄÐÅÏ¢£¬Ö»Ìá¹©·þÎñ  *
+echo *ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½GitHubï¿½Ï¿ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ö»ï¿½á¹©ï¿½ï¿½ï¿½ï¿½  *
 echo **************************************************************
-echo *                         ÏîÄ¿ÃûÎª£ºPycatmv                                              *
+echo *                         ï¿½ï¿½Ä¿ï¿½ï¿½Îªï¿½ï¿½Pycatmv                                              *
 echo **************************************************************
 echo #
-echo # ÕýÔÚÎªÄãÌí¼ÓDNS½âÎö£¬°ïÖúÄã´ÓGithubÉÏ»ñÈ¡¸üÐÂ...
+echo # ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½DNSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Githubï¿½Ï»ï¿½È¡ï¿½ï¿½ï¿½ï¿½...
 echo #
 set load=0
 findstr "185.199.108.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
 findstr "185.199.109.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
 findstr "185.199.110.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
 findstr "185.199.111.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
-if %load%==1 (echo * ÄãÒÑ¾­ÔËÐÐ¹ý¸Ã½Å±¾ÁË£¬²»ÒªÖØ¸´ÔËÐÐÅ¶ && pause && exit)
+ipconfig /flushdns
+if %load%==1 (echo * ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½Ã½Å±ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½Å¶ && pause && exit)
 echo 185.199.108.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
 echo 185.199.109.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
 echo 185.199.110.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
 echo 185.199.111.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
-echo * ³É¹¦À²£¡
+ipconfig /flushdns
+echo * ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½
 pause
