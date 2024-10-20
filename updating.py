@@ -20,8 +20,8 @@ import sys
 # from operator import index
 import requests
 
-def write_d():
-    dic = {"version": "0.0.0", "project": "Pycatmv", "beta_build": "main"}
+def write_d(new_version):
+    dic = {"version": new_version, "project": "Pycatmv", "beta_build": "main"}
     with open("version.json", mode="w") as f:
         f.write(json.dumps(dic, indent=4, sort_keys=True, ensure_ascii=False))
 
@@ -95,6 +95,7 @@ def main(url):
             # 删除main
             os.remove("main.py")
             os.rename("main_0.py", "main.py")
+            write_d(version_list[-1])
 
     else:
         print("****您当前版本已经不在热更新范围内，需要全量更新****")
