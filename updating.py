@@ -45,6 +45,9 @@ def detect_update(version_file_url):
     except requests.exceptions.ReadTimeout:
         print("暂无可用更新")
         return 0
+    except requests.exceptions.ConnectionError:
+        print("网络连接错误，暂无可用更新")
+        return 0
     else:
         exist_info = json.loads(v.read())
         v.close()
@@ -70,6 +73,7 @@ def update_all():
 def main(url):
     # add_files = []
     # rm_files = []
+    print("正在获取...")
     resp = requests.get(url)
     dic = json.loads(resp.text)
     version_list = list(dic.keys())
@@ -96,6 +100,7 @@ def main(url):
             os.remove("main.py")
             os.rename("main_0.py", "main.py")
             write_d(version_list[-1])
+            resp.close()
 
     else:
         print("****您当前版本已经不在热更新范围内，需要全量更新****")
