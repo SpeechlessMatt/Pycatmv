@@ -20,7 +20,7 @@ VERSION = "0.1.1"
 4. 进入url通过re寻找video标签，然后下载m3u8，保留主要url
 5. 将m3u8的主要url通过协程下载完整视频"""
 
-headers = {
+HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
     "Cookies": "_pk_id.12.a3ce=f80a29df0e33ec7e.1729091921.; recente=%5B%7B%22vod_name%22%3A%22%E"
                "4%BC%8D%E5%85%AD%E4%B8%83%E4%B9%8B%E8%AE%B0%E5%BF%86%E7%A2%8E%E7%89%87%22%2C%22vod"
@@ -171,7 +171,7 @@ def api_effective(api_list: list):
 
 # 获取子页面地址，进入选集选播放源
 def from_api_to_url(url):
-    resp = requests.get(url, headers=headers)
+    resp = requests.get(url, headers=HEADERS)
     # print(resp.text)
     # 这个可以获取一个可用播放源列表
     obj_api = re.compile(r'<li class="fed-tabs-btns fed-part-curs fed-font-xvi fed-mart-v fed-text-green">(.*?)</li>',
@@ -238,16 +238,23 @@ def ff_method(url: str, name, download_dir):
         resp2.close()
     os.remove(f"{download_dir}/w1.m3u8")
     # print("ok")
+    # get Authority
+    headers_authority = {
+        ":authority": "svipsvip.ffzy-online5.com",
+        "Referer": "https://svip.ffzyplay.com/",
+        "Origin": "https://svip.ffzyplay.com"
+    }
+    return 1, headers_authority
 
 def match_api_method(api_name, m3u8_href, name, download_dir):
     try:
         if api_name == "暴风云":
             # headers 是常量
-            download_file(m3u8_href, name, headers, download_dir)
-            return 0
+            download_file(m3u8_href, name, HEADERS, download_dir)
+            return 0, None
         if api_name == "非凡云":
-            ff_method(m3u8_href, name, download_dir)
-            return 0
+            headers_ = ff_method(m3u8_href, name, download_dir)
+            return 1, headers_
         # if api_name == "量子云":
         #     print("还未适配")
         #     print("5s后自动退出...")
@@ -258,12 +265,12 @@ def match_api_method(api_name, m3u8_href, name, download_dir):
         print("该源不可用！请尝试别的源")
         if os.path.exists(download_dir):
             shutil.rmtree(download_dir)
-        return 1
+        return -1, "error"
 
 # 获取m3u8的url
 def get_m3u8_url(url):
     obj = re.compile(r'<script>.*?var now="(?P<href>.*?)"')
-    resp = requests.get(url, headers=headers)
+    resp = requests.get(url, headers=HEADERS)
     # 拿到m3u8的url
     for it in obj.finditer(resp.text):
         href = it.group("href")
@@ -288,9 +295,9 @@ async def download_ts(session, host, ts_name, download_dir="ts"):
 
 
 # 创建异步协程：为ts下载做准备
-async def get_ts(host, file, download_dir="ts"):
+async def get_ts(host, file, download_dir="ts", headers=None):
     tasks = []
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(headers=headers) as session:
         async with aiofiles.open(f"{download_dir}/" + file, mode="r", encoding="utf-8") as f:
             async for wrapper in f:
                 line = str(wrapper).strip()
@@ -402,19 +409,23 @@ def main(setUrl="null"):
     # 特殊
     print("[*]>>>开始解析...")
     api_ret = match_api_method(api_name, m3u8_href, name=m3u8_file_name, download_dir=dir_name)
+    headers = None
     # 源加载错误
-    if api_ret == 1:
+    if api_ret[0] == 1:
         with open("temp", mode="w") as temp:
             temp.write("[setUrl]" + set_url)
             print("源加载错误，请选择别的源重试")
             sys.exit(0)
+    # 返回值搭载请求头
+    if api_ret[0] == 1:
+        headers = api_ret[1]
+
     # download_m3u8(m3u8_href, name=m3u8_file_name, download_dir=dir_name)
 
     # 协程下载:单线程
-    # asyncio.run(get_ts(m3u8_href.rsplit('/', 1)[0] + "/", m3u8_file_name, download_dir=dir_name))
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    loop.run_until_complete(get_ts(m3u8_href.rsplit('/', 1)[0] + "/", m3u8_file_name, download_dir=dir_name))
+    loop.run_until_complete(get_ts(m3u8_href.rsplit('/', 1)[0] + "/", m3u8_file_name, download_dir=dir_name, headers=headers))
     print("下载完毕, 开始合并...")
     cat_ffmpeg(m3u8_file_name, download_dir=dir_name)
     # rm_all_temp(dir_name)

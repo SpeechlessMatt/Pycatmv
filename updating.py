@@ -86,7 +86,22 @@ def main(url):
             if dic[update_version]['log'] == "all_update":
                 print("接收到全量版本更新！")
                 return 0
-        # 目前热更新仅支持main.py更新
+            if dic[update_version]['log'] == "updating_update":
+                updating_url = dic[version_list[-1]]['updating_url']
+        # 目前热更新仅支持main.py, updating.py更新
+        if updating_url:
+            try:
+                with requests.get(updating_url) as u:
+                    with open("updating_0.py", mode="wb") as m:
+                        m.write(u.content)
+            except requests.exceptions.ConnectTimeout:
+                print("更新失败！原因：无法连接")
+                sys.exit()
+            else:
+                # 删除main
+                os.remove("updating_0.py")
+                os.rename("updating_0.py", "update.py")
+                resp.close()
         hot_update_url = dic[version_list[-1]]['direct_url']
         try:
             with requests.get(hot_update_url) as r:
