@@ -10,8 +10,8 @@ import time
 import shutil
 from updating import detect_update
 
-# version: 0.1.1
-VERSION = "0.1.2"
+# version: 0.1.3
+VERSION = "0.1.3"
 """
 初级阶段的任务（已完成）
 1. 从主页面拿到不同播放源 目前只抓暴风云
@@ -442,7 +442,7 @@ if __name__ == '__main__':
             os.system("update.bat")
             sys.exit(0)
         else:
-            print("---用户：拒绝更新")
+            print("---用户：拒绝更新---")
     try:
         temp_file = open("temp", mode="r")
     except FileNotFoundError:

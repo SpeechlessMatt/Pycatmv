@@ -14,19 +14,21 @@ echo **************************************************************
 echo *                 项目名称：Pycatmv                          *
 echo **************************************************************
 echo #
-echo # 正在修复中......
 
 set load=0
 findstr "185.199.108.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
 findstr "185.199.109.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
 findstr "185.199.110.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
 findstr "185.199.111.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
+findstr "151.101.100.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
 ipconfig /flushdns >nul 2>&1
 if %load%==1 (echo * 请不要重复运行喔 && pause && exit)
+echo # 正在修复中......
 echo 185.199.108.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
 echo 185.199.109.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
 echo 185.199.110.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
 echo 185.199.111.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
+echo 151.101.100.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
 ipconfig /flushdns >nul 2>&1
 echo * 修复完成！！
 pause

@@ -89,11 +89,14 @@ def main(url):
     if exist_version in version_list:
         exist_version_index = version_list.index(exist_version)
         updating_url = None
+
         for it in range(exist_version_index + 1, len(version_list)):
             update_version = version_list[it]
+
             if dic[update_version]['log'] == "all_update":
                 print("接收到全量版本更新！")
                 return 0
+            
             if dic[update_version]['log'] == "updating_update":
                 updating_url = dic[version_list[-1]]['updating_url']
         # 目前热更新仅支持main.py, updating.py更新
@@ -102,15 +105,18 @@ def main(url):
                 with requests.get(updating_url) as u:
                     with open("updating_0.py", mode="wb") as m:
                         m.write(u.content)
-            except requests.exceptions.ConnectTimeout:
+            except requests.exceptions.ConnectionError:
                 print("更新失败！原因：无法连接")
                 sys.exit()
+            except requests.exceptions.ConnectTimeout:
+                print("更新失败，原因：连接超时")
             else:
-                # 删除main
-                os.remove("updating_0.py")
+                # 删除updating.py
+                os.remove("updating.py")
                 os.rename("updating_0.py", "update.py")
-                print("更新成功！！！")
+                print("updating模块更新成功！！！")
                 resp.close()
+        # 默认更新main
         hot_update_url = dic[version_list[-1]]['direct_url']
         try:
             with requests.get(hot_update_url) as r:
@@ -124,6 +130,7 @@ def main(url):
             os.remove("main.py")
             os.rename("main_0.py", "main.py")
             write_d(version_list[-1])
+            print("main模块更新成功！！！")
             resp.close()
 
     else:
