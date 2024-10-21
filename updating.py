@@ -73,8 +73,15 @@ def update_all():
 def main(url):
     # add_files = []
     # rm_files = []
-    print("正在获取...")
-    resp = requests.get(url)
+    print("正在获取更新...")
+    try:
+        resp = requests.get(url)
+    except requests.exceptions.ConnectionError:
+        print("连接失败")
+        sys.exit(0)
+    except requests.exceptions.ConnectTimeout:
+        print("连接超时")
+        sys.exit(0)
     dic = json.loads(resp.text)
     version_list = list(dic.keys())
     with open("update", mode="r") as v:
@@ -102,6 +109,7 @@ def main(url):
                 # 删除main
                 os.remove("updating_0.py")
                 os.rename("updating_0.py", "update.py")
+                print("更新成功！！！")
                 resp.close()
         hot_update_url = dic[version_list[-1]]['direct_url']
         try:
