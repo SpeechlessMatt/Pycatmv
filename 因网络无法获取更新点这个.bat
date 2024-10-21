@@ -6,27 +6,27 @@ if '%errorlevel%' NEQ '0' (goto UACPrompt) else (goto UACAdmin)
 %1 start "" mshta vbscript:createobject("shell.application").shellexecute("""%~0""","::",,"runas",1)(window.close)&exit
 exit /B
 :UACAdmin
+chcp 65001 >nul 2>&1
 cd /d "%~dp0"
-echo �ѻ�ȡ����ԱȨ��
 echo **************************************************************
-echo *����Ŀ��GitHub�Ͽ�Դ�������ռ��κ�������Ϣ��ֻ�ṩ����  *
+echo *                  修复网络工具--hosts方式                   *
 echo **************************************************************
-echo *                         ��Ŀ��Ϊ��Pycatmv                                              *
+echo *                 项目名称：Pycatmv                          *
 echo **************************************************************
 echo #
-echo # ����Ϊ������DNS�������������Github�ϻ�ȡ����...
-echo #
+echo # 正在修复中......
+
 set load=0
 findstr "185.199.108.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
 findstr "185.199.109.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
 findstr "185.199.110.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
 findstr "185.199.111.133" C:\Windows\System32\drivers\etc\hosts >nul 2>&1 && set load=1
-ipconfig /flushdns
-if %load%==1 (echo * ���Ѿ����й��ýű��ˣ���Ҫ�ظ�����Ŷ && pause && exit)
+ipconfig /flushdns >nul 2>&1
+if %load%==1 (echo * 请不要重复运行喔 && pause && exit)
 echo 185.199.108.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
 echo 185.199.109.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
 echo 185.199.110.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
 echo 185.199.111.133 raw.githubusercontent.com>>C:\Windows\System32\drivers\etc\hosts
-ipconfig /flushdns
-echo * �ɹ�����
+ipconfig /flushdns >nul 2>&1
+echo * 修复完成！！
 pause
