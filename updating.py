@@ -113,7 +113,7 @@ def main(url):
             else:
                 # 删除updating.py
                 os.remove("updating.py")
-                os.rename("updating_0.py", "update.py")
+                os.rename("updating_0.py", "updating.py")
                 print("updating模块更新成功！！！")
                 resp.close()
         # 默认更新main
