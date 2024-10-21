@@ -131,6 +131,7 @@ def main(url):
             os.rename("main_0.py", "main.py")
             write_d(version_list[-1])
             print("main模块更新成功！！！")
+            os.remove("update")
             resp.close()
 
     else:
