@@ -428,7 +428,7 @@ def main(setUrl="null"):
     loop.run_until_complete(get_ts(m3u8_href.rsplit('/', 1)[0] + "/", m3u8_file_name, download_dir=dir_name, headers=headers))
     print("下载完毕, 开始合并...")
     cat_ffmpeg(m3u8_file_name, download_dir=dir_name)
-    # rm_all_temp(dir_name)
+    rm_all_temp(dir_name)
     print("ok")
 
 
