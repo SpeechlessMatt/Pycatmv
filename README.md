@@ -7,6 +7,8 @@ A free movie cat.A rookie-made simple python to catch data from free webs.It can
 # Download
 * `git clone https://github.com/SpeechlessMatt/Pycatmv.git`
 # usage
+* Download it
+* Click the '点我开始.bat'
 * Input the TV play you want to watch.
 * Input the api you want to choose.
 * Input the epidsode you want to watch.
