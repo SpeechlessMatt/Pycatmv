@@ -445,11 +445,8 @@ if __name__ == '__main__':
             sys.exit(0)
         else:
             print("---用户：拒绝更新---")
-    try:
+    if os.path.exists("temp"):
         temp_file = open("temp", mode="r")
-    except FileNotFoundError:
-        main()
-    else:
         for temp_line in temp_file:
             if not temp_line:
                 continue
@@ -460,4 +457,6 @@ if __name__ == '__main__':
                 else:
                     main()
         temp_file.close()
+    else:
+        main()
 
