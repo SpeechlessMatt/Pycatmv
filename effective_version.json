@@ -20,6 +20,14 @@
         "add_files": ["NONE"],
         "updating_url": "https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/updating.py",
         "log": "updating_update"
+    },
+    "0.1.4": {
+        "date": "2024.10.22",
+        "direct_url": "https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/main.py",
+        "rm_files": ["NONE"],
+        "add_files": ["NONE"],
+        "updating_url": "https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/updating.py",
+        "log": "update"
     }
 
 }

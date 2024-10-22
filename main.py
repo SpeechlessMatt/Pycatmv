@@ -10,8 +10,8 @@ import time
 import shutil
 from updating import detect_update
 
-# version: 0.1.3
-VERSION = "0.1.3"
+# version: 0.1.4
+VERSION = "0.1.4"
 """
 初级阶段的任务（已完成）
 1. 从主页面拿到不同播放源 目前只抓暴风云
@@ -433,6 +433,8 @@ def main(setUrl="null"):
 
 
 if __name__ == '__main__':
+    if not os.path.exists("Documents"):
+        os.mkdir("Documents")
     print("* 正在检查更新...")
     update_status = detect_update("https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/version.json")
     if update_status == 1:
