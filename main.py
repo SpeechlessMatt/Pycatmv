@@ -10,8 +10,8 @@ import time
 import shutil
 from updating import detect_update
 
-# version: 0.1.4
-VERSION = "0.1.4"
+# version: 0.1.5
+VERSION = "0.1.5"
 """
 初级阶段的任务（已完成）
 1. 从主页面拿到不同播放源 目前只抓暴风云
@@ -363,8 +363,8 @@ def main(setUrl="null"):
     print("* 免责声明：程序仅供学习，侵权删资源...")
     print("* 作者:@czy_4201b")
     print(f"* 当前版本：{VERSION}")
-    print("* 本软件的接口来源于星辰影院，一个小服务器，不要过度折腾他\n毕竟运营服务器要钱的...")
-    print("* 下载后的文件在本目录Documents文件夹里面")
+    print("* 本软件的接口来源于星辰影院")
+    print("* 下载后的文件在本目录Downloads文件夹里面")
     try:
         if setUrl == "null":
             # 调用网站search.php接口，需要保护接口
@@ -433,8 +433,8 @@ def main(setUrl="null"):
 
 
 if __name__ == '__main__':
-    if not os.path.exists("Documents"):
-        os.mkdir("Documents")
+    if not os.path.exists("Downloads"):
+        os.mkdir("Downloads")
     print("* 正在检查更新...")
     update_status = detect_update("https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/version.json")
     if update_status == 1:
