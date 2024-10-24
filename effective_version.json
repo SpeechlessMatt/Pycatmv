@@ -1,11 +1,4 @@
 {
-    "0.1.1": {
-        "date": "2024.10.20",
-        "direct_url": "https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/main.py",
-        "rm_files": ["a"],
-        "add_files": ["a"],
-        "log": "update"
-    },
     "0.1.2": {
         "date": "2024.10.21",
         "direct_url": "https://raw.githubusercontent.com/SpeechlessMatt/Pycatmv/refs/heads/main/main.py",
