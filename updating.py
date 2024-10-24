@@ -75,7 +75,7 @@ def main(url):
     # rm_files = []
     print("正在获取更新...")
     try:
-        resp = requests.get(url)
+        resp = requests.get(url, timeout=10)
     except requests.exceptions.ConnectionError:
         print("连接失败")
         sys.exit(0)

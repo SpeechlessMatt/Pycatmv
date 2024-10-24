@@ -10,8 +10,8 @@ import time
 import shutil
 from updating import detect_update
 
-# version: 0.1.5
-VERSION = "0.1.5"
+# version: 0.1.6
+VERSION = "0.1.6"
 """
 初级阶段的任务（已完成）
 1. 从主页面拿到不同播放源 目前只抓暴风云
